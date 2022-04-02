@@ -1,8 +1,6 @@
 package com.barksoft.participantregistry;
 
 import com.barksoft.participantregistry.serialization.Participant;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +14,19 @@ import static com.barksoft.participantregistry.ParticipantRegistryApplication.BA
 import static com.barksoft.participantregistry.ParticipantRegistryApplication.ID_PATH;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Basic testing of all endpoints in {@link ParticipantRegistryService}. This class mainly serves as a check that
+ * the web service will respond to basic requests. Because this spins up a web server for the tests, edge case and
+ * exhaustive testing should ideally be put in unit tests for underlying service implementations to reduce test runtime
+ * as the project grows (see {@link com.barksoft.participantregistry.registry.local.TransientRegistryTests} and
+ * {@link com.barksoft.participantregistry.uid.local.TransientUidServiceTests} for examples).
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith({SpringExtension.class})
 @AutoConfigureWebTestClient
 class ParticipantRegistryApplicationTests {
     @Autowired
     private WebTestClient testClient;
-
-    private ObjectMapper objectMapper = new ObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     @Test
     void testCreateParticipant() {
