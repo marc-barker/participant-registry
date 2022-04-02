@@ -8,11 +8,9 @@ This project is a very simple example implementation of a registry storing basic
 
 You can build and run the project using `./gradlew bootRun` if you have Java 17 locally. 
 
-Otherwise, you can build and run a docker image by executing the following two commands (from the root of the project):
+Otherwise, you can build and run a docker image by executing the following command (from the root of the project, replace $PWD on Windows with %CD%):
 
-`docker build -t participant-registry .`
-
-`docker run -d -p "8080:8080" participant-registry`
+`docker run --rm -p "8080:8080" -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:jdk17-alpine gradle bootRun`
 
 All endpoints will be exposed on `http://localhost:8080`!
 
